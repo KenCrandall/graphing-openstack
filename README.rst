@@ -18,6 +18,7 @@ Line Color
 * REQUIRES (black)
 
   * x REQUIRES y. X cannot be used without y
+  * x talks to y, so service y must be available to x.
 * CAN-USE (grey)
 
   * x CAN-USE y. x can be used with our without y.
@@ -28,3 +29,4 @@ Line Color
 
   * x DEPEND-ON y. x depends on y to set things up and consume the resources x produces.
   * Example: cinder requires nova. Otherwise a user cannot attach a volume to an instance
+  * X depends on y being available to the consumers of x.
