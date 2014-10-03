@@ -47,9 +47,3 @@
       neutron: neutronclient
       swift: swiftclient
 - swift:
-- ironic:
-    REQUIRES:
-      glance: glanceclient
-    CANUSE:
-      keystone: keystonemiddelware
-      neutron: neutronclient
