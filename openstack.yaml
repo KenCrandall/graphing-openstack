@@ -69,6 +69,8 @@
         glance: glanceclient
         nova: novaclient
 - zaqar:
+    CANUSE:
+      keystone: keystonemiddelware
 - ceilometer:
 - sahara:
 - barbican:
