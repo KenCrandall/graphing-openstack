@@ -47,3 +47,5 @@
       neutron: neutronclient
       swift: swiftclient
 - swift:
+    CANUSE:
+      keystone: keystonemiddelware
