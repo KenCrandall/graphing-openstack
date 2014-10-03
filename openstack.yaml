@@ -32,6 +32,7 @@
     REQUIRES:
       keystone: keystonemiddelware
     CANUSE:
+      cinder: cinderclient
       swift: swiftclient
 - ironic:
     REQUIRES:
