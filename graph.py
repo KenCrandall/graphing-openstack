@@ -18,14 +18,14 @@ import pydot
 
 graph = pydot.Dot(graph_type='digraph')
 
-server_names = ['nova', 'keystone', 'glance']
-s = {}  # servers
+service_names = ['nova', 'keystone', 'glance']
+s = {}  # services
 
-for server in server_names:
-    s[server] = pydot.Node(server, style="filled")
+for service in service_names:
+    s[service] = pydot.Node(service, style="filled")
 
-for server in s:
-    graph.add_node(s[server])
+for service in s:
+    graph.add_node(s[service])
 
 # black: a REQUIRES b THROUGH label
 REQUIRES = "black"
