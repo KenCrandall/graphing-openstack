@@ -1,3 +1,11 @@
+# service:
+#   REQUIRES:
+#     service: through
+#   DEPENDS:
+#     service
+#   CANUSE:
+#     service: through
+
 ---
 
 - keystone:
@@ -11,10 +19,34 @@
       - glance
     CANUSE:
       cinder: cinderclient
+      ironic: ironicclient
 - neutron:
     REQUIRES:
       keystone: keystonemiddelware
     DEPENDSON:
       - nova
 - cinder:
+    REQUIRES:
+      keystone: keystonemiddelware
+    DEPENDSON:
+      - nova
 - glance:
+    REQUIRES:
+      keystone: keystonemiddelware
+    CANUSE:
+      swift: swiftclient
+- swift:
+- ironic:
+    REQUIRES:
+      glance: glanceclient
+    CANUSE:
+      keystone: keystonemiddelware
+      neutron: neutronclient
+      swift: swiftclient
+- swift:
+- ironic:
+    REQUIRES:
+      glance: glanceclient
+    CANUSE:
+      keystone: keystonemiddelware
+      neutron: neutronclient
