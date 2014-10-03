@@ -34,8 +34,8 @@ def edges(service, nodes, color):
             if color != "DEPENDSON":
                 graph.add_edge(pydot.Edge(nodes[name],
                                           nodes[x],
-                                          color=colors[color],
-                                          label=service[name][color][x]))
+                                          color=colors[color]))
+                                          #label=service[name][color][x]))
             else:
                 graph.add_edge(pydot.Edge(nodes[name],
                                           nodes[x],
