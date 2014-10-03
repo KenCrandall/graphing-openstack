@@ -28,6 +28,9 @@
 - cinder:
     REQUIRES:
       keystone: keystonemiddelware
+      glance: glanceclient
+    CANUSE:
+      swift: swiftclient
     DEPENDSON:
       - nova
 - glance:
