@@ -14,9 +14,6 @@
       keystone: keystonemiddelware
       glance: glanceclient
       neutron: neutronclient
-    DEPENDSON:
-      - neutron
-      - glance
     CANUSE:
       cinder: cinderclient
       ironic: ironicclient
@@ -29,8 +26,6 @@
     REQUIRES:
       keystone: keystonemiddelware
       glance: glanceclient
-    CANUSE:
-      swift: swiftclient
     DEPENDSON:
       - nova
 - glance:
@@ -38,7 +33,6 @@
       keystone: keystonemiddelware
     CANUSE:
       swift: swiftclient
-- swift:
 - ironic:
     REQUIRES:
       glance: glanceclient
@@ -46,6 +40,34 @@
       keystone: keystonemiddelware
       neutron: neutronclient
       swift: swiftclient
+- ironic-python-agent:
+    DEPENDSON:
+        - ironic
 - swift:
     CANUSE:
       keystone: keystonemiddelware
+- trove:
+    REQUIRES:
+        keystone: keystonemiddelware
+        neutron: neutronclient
+        swift: swiftclient
+        glance: glanceclient
+        nova: novaclient
+- horizon:
+    CANUSE:
+        keystone: keystonemiddelware
+        neutron: neutronclient
+        swift: swiftclient
+        glance: glanceclient
+        nova: novaclient
+- heat:
+    CANUSE:
+        keystone: keystonemiddelware
+        neutron: neutronclient
+        swift: swiftclient
+        glance: glanceclient
+        nova: novaclient
+- zaqar:
+- ceilometer:
+- sahara:
+- barbican:

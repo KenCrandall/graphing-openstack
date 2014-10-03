@@ -3,6 +3,11 @@ Graphing OpenStack
 
 Attempt at graphing the relationships between assorted OpenStack services
 
+Requirements
+============
+
+Generating graphs requires GraphViz to be installed.
+
 Key
 ====
 
