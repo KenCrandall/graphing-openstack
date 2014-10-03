@@ -75,4 +75,12 @@
       keystone: keystonemiddelware
 - ceilometer:
 - sahara:
+    REQUIRES:
+        cinder: cinderclient
+        keystone: keystonemiddelware
+        nova: novaclient
+        neutron: neutronclient
+        swift: swiftclient
+        heat: heatclient
+        glance: glanceclient
 - barbican:
