@@ -63,6 +63,7 @@
         swift: swiftclient
         glance: glanceclient
         nova: novaclient
+        ceilometer: ceilometerclient
 - heat:
     DEPENDSON:
         - ceilometer
@@ -76,6 +77,13 @@
     CANUSE:
       keystone: keystonemiddelware
 - ceilometer:
+    REQUIRES:
+        keystone: keystonemiddelware
+    CANUSE:
+        nova: novaclient
+        neutron: neutronclient
+        swift: swiftclient
+        glance: glanceclient
 - sahara:
     REQUIRES:
         cinder: cinderclient
