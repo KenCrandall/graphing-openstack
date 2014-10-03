@@ -25,13 +25,16 @@
 - cinder:
     REQUIRES:
       keystone: keystonemiddelware
+    CANUSE:
       glance: glanceclient
+      swift: swiftclient
     DEPENDSON:
       - nova
 - glance:
     REQUIRES:
       keystone: keystonemiddelware
     CANUSE:
+      cinder: cinderclient
       swift: swiftclient
 - ironic:
     REQUIRES:
@@ -68,6 +71,8 @@
         glance: glanceclient
         nova: novaclient
 - zaqar:
+    CANUSE:
+      keystone: keystonemiddelware
 - ceilometer:
 - sahara:
 - barbican:
