@@ -12,44 +12,59 @@
 
 
 import pydot
+import yaml
 
 # code initially based off of
 # http://pythonhaven.wordpress.com/2009/12/09/generating_graphs_with_pydot/
 
+
+colors = {"REQUIRES": "black",
+          "CANUSE": "blue",
+          "DEPENDSON": "red"}
+
+
+def edges(service, nodes, color):
+    name = service.keys()[0]
+
+    if service[name]:
+        if color not in service[name]:
+            # color isn't present
+            return
+        for x in service[name][color]:
+            if color != "DEPENDSON":
+                graph.add_edge(pydot.Edge(nodes[name],
+                                          nodes[x],
+                                          color=colors[color],
+                                          label=service[name][color][x]))
+            else:
+                graph.add_edge(pydot.Edge(nodes[name],
+                                          nodes[x],
+                                          color=colors[color]))
+
+
+data = yaml.load(open('openstack.yaml', 'r'))
+
 graph = pydot.Dot(graph_type='digraph')
 
-service_names = ['nova', 'keystone', 'glance']
-s = {}  # services
+nodes = {}  # services
 
-for service in service_names:
-    s[service] = pydot.Node(service, style="filled")
+for service in data:
+    name = service.keys()[0]
+    nodes[name] = pydot.Node(name, style="filled")
 
-for service in s:
-    graph.add_node(s[service])
+for service in nodes:
+    graph.add_node(nodes[service])
 
 # black: a REQUIRES b THROUGH label
-REQUIRES = "black"
 # blue: a CAN-USE b THROUGH label
-CANUSE = "blue"
 # red: a DEPENDS-ON b
-DEPENDSON = "red"
 
-graph.add_edge(pydot.Edge(s['nova'],
-                          s['keystone'],
-                          color=REQUIRES,
-                          label="keystomiddleware"))
-graph.add_edge(pydot.Edge(s['nova'],
-                          s['glance'],
-                          color=REQUIRES,
-                          label='glanceclient'))
-graph.add_edge(pydot.Edge(s['nova'],
-                          s['glance'],
-                          color=DEPENDSON))
 
-graph.add_edge(pydot.Edge(s['glance'],
-                          s['keystone'],
-                          color=REQUIRES,
-                          label="keystomiddleware"))
+for service in data:
+    edges(service, nodes, 'REQUIRES')
+    edges(service, nodes, 'CANUSE')
+    edges(service, nodes, 'DEPENDSON')
+
 
 
 graph.write_png('OpenStack.png')

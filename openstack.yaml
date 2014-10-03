@@ -1,0 +1,20 @@
+---
+
+- keystone:
+- nova:
+    REQUIRES:
+      keystone: keystonemiddelware
+      glance: glanceclient
+      neutron: neutronclient
+    DEPENDSON:
+      - neutron
+      - glance
+    CANUSE:
+      cinder: cinderclient
+- neutron:
+    REQUIRES:
+      keystone: keystonemiddelware
+    DEPENDSON:
+      - nova
+- cinder:
+- glance:
