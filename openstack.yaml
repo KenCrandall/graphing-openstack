@@ -64,6 +64,8 @@
         glance: glanceclient
         nova: novaclient
 - heat:
+    DEPENDSON:
+        - ceilometer
     CANUSE:
         keystone: keystonemiddelware
         neutron: neutronclient
