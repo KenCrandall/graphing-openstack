@@ -19,8 +19,8 @@ import yaml
 
 
 colors = {"REQUIRES": "black",
-          "CANUSE": "blue",
-          "DEPENDSON": "red"}
+          "DEPENDSON": "red",
+          "CANUSE": "grey"}
 
 
 def edges(service, nodes, color):
