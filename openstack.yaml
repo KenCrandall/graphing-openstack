@@ -43,9 +43,6 @@
       keystone: keystonemiddelware
       neutron: neutronclient
       swift: swiftclient
-- ironic-python-agent:
-    DEPENDSON:
-        - ironic
 - swift:
     CANUSE:
       keystone: keystonemiddelware
@@ -65,8 +62,8 @@
         nova: novaclient
         ceilometer: ceilometerclient
 - heat:
-    DEPENDSON:
-        - ceilometer
+    REQUIRES:
+        ceilometer: ceilometerclient  # autoscaling
     CANUSE:
         keystone: keystonemiddelware
         neutron: neutronclient
