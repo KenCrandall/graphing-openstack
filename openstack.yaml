@@ -15,7 +15,8 @@
       glance: glanceclient
       neutron: neutronclient
     DEPENDSON:
-      - neutron
+      - neutron # User needs to create a network first
+      - glance # User needs to know what image to use
     CANUSE:
       cinder: cinderclient
       ironic: ironicclient
@@ -23,7 +24,7 @@
     REQUIRES:
       keystone: keystonemiddelware
     DEPENDSON:
-      - nova
+      - nova # If you don't have instances on your network why have the network
 - cinder:
     REQUIRES:
       keystone: keystonemiddelware
@@ -31,7 +32,7 @@
       glance: glanceclient
       swift: swiftclient
     DEPENDSON:
-      - nova
+      - nova # You need to use nova to attach your volume
 - glance:
     REQUIRES:
       keystone: keystonemiddelware
