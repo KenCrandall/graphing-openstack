@@ -67,4 +67,5 @@ for service in data:
 
 
 
+graph.write_raw('OpenStack.dot')
 graph.write_png('OpenStack.png')
