@@ -97,3 +97,5 @@
         heat: heatclient
         glance: glanceclient
 - barbican:
+    REQUIRES:
+        keystone: keystonemiddelware
