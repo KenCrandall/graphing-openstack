@@ -64,6 +64,9 @@
         glance: glanceclient
         nova: novaclient
         ceilometer: ceilometerclient
+        trove: troveclient
+        heat: heatclient
+        sahara: saharaclient
 - heat:
     REQUIRES:
         ceilometer: ceilometerclient  # autoscaling
