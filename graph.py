@@ -45,12 +45,13 @@ def edges(service, nodes, color):
 data = yaml.load(open('openstack.yaml', 'r'))
 
 graph = pydot.Dot(graph_type='digraph')
+graph.set_node_defaults(style='filled')
 
 nodes = {}  # services
 
 for service in data:
     name = service.keys()[0]
-    nodes[name] = pydot.Node(name, style="filled")
+    nodes[name] = pydot.Node(name)
 
 for service in nodes:
     graph.add_node(nodes[service])
