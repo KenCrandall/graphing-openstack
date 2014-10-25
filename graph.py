@@ -24,6 +24,7 @@ colors = {"REQUIRES": "black",
 
 
 def edges(service, nodes, color):
+    """Add edges from service to nodes."""
     name = service.keys()[0]
 
     if service[name]:
@@ -35,7 +36,6 @@ def edges(service, nodes, color):
                 graph.add_edge(pydot.Edge(nodes[name],
                                           nodes[x],
                                           color=colors[color]))
-                                          #label=service[name][color][x]))
             else:
                 graph.add_edge(pydot.Edge(nodes[name],
                                           nodes[x],
@@ -49,23 +49,15 @@ graph.set_node_defaults(style='filled')
 
 nodes = {}  # services
 
-for service in data:
+for service in sorted(data):
     name = service.keys()[0]
     nodes[name] = pydot.Node(name)
-
-for service in nodes:
-    graph.add_node(nodes[service])
-
-# black: a REQUIRES b THROUGH label
-# blue: a CAN-USE b THROUGH label
-# red: a DEPENDS-ON b
-
+    graph.add_node(nodes[name])
 
 for service in data:
     edges(service, nodes, 'REQUIRES')
     edges(service, nodes, 'CANUSE')
     edges(service, nodes, 'DEPENDSON')
-
 
 
 graph.write_raw('OpenStack.dot')
