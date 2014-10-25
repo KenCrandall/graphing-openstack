@@ -1,0 +1,13 @@
+- nova-api:
+  - nova-compute
+  - nova-scheduler
+  - nova-conductor
+  - nova-cert
+- nova-compute:
+  - nova-conductor
+  - nova-console
+- nova-conductor:
+- nova-scheduler:
+  - nova-compute
+- nova-console:
+- nova-cert:

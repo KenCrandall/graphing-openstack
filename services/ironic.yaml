@@ -1,0 +1,7 @@
+- ironic-api:
+  - ironic-conductor
+- ironic-conductor:
+  - DB
+  - drivers
+- drivers:
+- DB:

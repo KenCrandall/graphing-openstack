@@ -10,6 +10,7 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
+import argparse
 
 import pydot
 import yaml
@@ -23,11 +24,16 @@ colors = {"REQUIRES": "black",
           "CANUSE": "grey"}
 
 
-def edges(service, nodes, color):
+def edges(graph, service, nodes, color):
     """Add edges from service to nodes."""
     name = service.keys()[0]
 
     if service[name]:
+        if color is None:
+            # service specific graph
+            for x in service[name]:
+                graph.add_edge(pydot.Edge(nodes[name],
+                                          nodes[x]))
         if color not in service[name]:
             # color isn't present
             return
@@ -42,23 +48,50 @@ def edges(service, nodes, color):
                                           color=colors[color]))
 
 
-data = yaml.load(open('openstack.yaml', 'r'))
+def plot_all_services(graph, verbose=False):
+    # TODO(jogo): if verbose, break out each service
+    data = yaml.load(open('openstack.yaml', 'r'))
 
-graph = pydot.Dot(graph_type='digraph')
-graph.set_node_defaults(style='filled')
+    nodes = {}  # services
 
-nodes = {}  # services
+    for service in sorted(data):
+        name = service.keys()[0]
+        nodes[name] = pydot.Node(name)
+        graph.add_node(nodes[name])
 
-for service in sorted(data):
-    name = service.keys()[0]
-    nodes[name] = pydot.Node(name)
-    graph.add_node(nodes[name])
-
-for service in data:
-    edges(service, nodes, 'REQUIRES')
-    edges(service, nodes, 'CANUSE')
-    edges(service, nodes, 'DEPENDSON')
+    for service in data:
+        edges(graph, service, nodes, 'REQUIRES')
+        edges(graph, service, nodes, 'CANUSE')
+        edges(graph, service, nodes, 'DEPENDSON')
 
 
-graph.write_raw('OpenStack.dot')
-graph.write_png('OpenStack.png')
+def plot_service(graph, service):
+    nodes = {}
+    data = yaml.load(open('services/%s.yaml' % service, 'r'))
+    for server in sorted(data):
+        name = server.keys()[0]
+        nodes[name] = pydot.Node(name)
+        graph.add_node(nodes[name])
+
+    for server in data:
+        edges(graph, server, nodes, None)
+
+
+def main(service=None):
+    graph = pydot.Dot(graph_type='digraph')
+    graph.set_node_defaults(style='filled')
+
+    if service is None:
+        plot_all_services(graph)
+    else:
+        plot_service(graph, service)
+
+    graph.write_raw('OpenStack.dot')
+    graph.write_png('OpenStack.png')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--service", help="Graph a single service")
+    args = parser.parse_args()
+    main(service=args.service)
