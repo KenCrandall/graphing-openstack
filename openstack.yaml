@@ -22,6 +22,7 @@
     CANUSE:
       cinder: cinderclient
       ironic: ironicclient
+      barbican: barbicanclient
 - neutron:
     REQUIRES:
       keystone: keystonemiddleware
@@ -33,6 +34,7 @@
     CANUSE:
       glance: glanceclient
       swift: swiftclient
+      barbican: barbicanclient
     DEPENDSON:
       - nova # You need to use nova to attach your volume
 - glance:
@@ -58,6 +60,8 @@
         swift: swiftclient
         glance: glanceclient
         nova: novaclient
+    CANUSE:
+        designate: designateclient
 - horizon:
     CANUSE:
         keystone: keystonemiddleware
@@ -78,6 +82,7 @@
         swift: swiftclient
         glance: glanceclient
         nova: novaclient
+        trove: troveclient
 - zaqar:
     CANUSE:
       keystone: keystonemiddleware
@@ -101,3 +106,13 @@
 - barbican:
     REQUIRES:
         keystone: keystonemiddleware
+- designate:
+    REQUIRES:
+        keystone: keystonemiddleware
+        neutron: neutronclient  # TODO identify if this is correct relationship
+- manilla:
+    REQUIRES:
+        keystone: keystonemiddleware
+        neutron: neutronclient  # TODO identify if this is correct relationship
+        cinder: cinderclient    # TODO identify if this is correct relationship
+        nova: novaclient      # TODO identify if this is correct relationship
