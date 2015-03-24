@@ -87,6 +87,7 @@ def main(service=None):
     else:
         plot_service(graph, service)
 
+    print("Writing OpenStack.dot and OpenStack.png")
     graph.write_raw('OpenStack.dot')
     graph.write_png('OpenStack.png')
 
