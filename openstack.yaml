@@ -13,7 +13,7 @@
 - keystone:
 - nova:
     REQUIRES:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
       glance: glanceclient
       neutron: neutronclient
     DEPENDSON:
@@ -24,12 +24,12 @@
       ironic: ironicclient
 - neutron:
     REQUIRES:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
     DEPENDSON:
       - nova # If you don't have instances on your network why have the network
 - cinder:
     REQUIRES:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
     CANUSE:
       glance: glanceclient
       swift: swiftclient
@@ -37,7 +37,7 @@
       - nova # You need to use nova to attach your volume
 - glance:
     REQUIRES:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
     CANUSE:
       cinder: cinderclient
       swift: swiftclient
@@ -45,22 +45,22 @@
     REQUIRES:
       glance: glanceclient
     CANUSE:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
       neutron: neutronclient
       swift: swiftclient
 - swift:
     CANUSE:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
 - trove:
     REQUIRES:
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
         neutron: neutronclient
         swift: swiftclient
         glance: glanceclient
         nova: novaclient
 - horizon:
     CANUSE:
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
         neutron: neutronclient
         swift: swiftclient
         glance: glanceclient
@@ -73,17 +73,17 @@
     REQUIRES:
         ceilometer: ceilometerclient  # autoscaling
     CANUSE:
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
         neutron: neutronclient
         swift: swiftclient
         glance: glanceclient
         nova: novaclient
 - zaqar:
     CANUSE:
-      keystone: keystonemiddelware
+      keystone: keystonemiddleware
 - ceilometer:
     REQUIRES:
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
     CANUSE:
         nova: novaclient
         neutron: neutronclient
@@ -92,7 +92,7 @@
 - sahara:
     REQUIRES:
         cinder: cinderclient
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
         nova: novaclient
         neutron: neutronclient
         swift: swiftclient
@@ -100,4 +100,4 @@
         glance: glanceclient
 - barbican:
     REQUIRES:
-        keystone: keystonemiddelware
+        keystone: keystonemiddleware
